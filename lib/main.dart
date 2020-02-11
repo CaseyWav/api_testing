@@ -83,3 +83,6 @@ class Post {
 
 //TO UPLOAD AND SHARE: VCS > IMPORT INTO VERSION CONTROL > SHARE PROJECT ON GITHUB
 // THEN, ADD COLLABORATERS ON THE WEBSITE
+//To add a project for the first time, go to vcs -> check out from version control -> git. good for windows users
+//to push an update: vsc -> commit, then vcs -> git -> push
+//to update, do vcs -> git -> pull
