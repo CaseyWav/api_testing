@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:api_testing/josh.dart';
 
+// the purpose of this class is the now work with a LIST of joshes
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -27,12 +29,14 @@ class _MyAppState extends State<MyApp> {
 
   Future<Josh> fetchPost() async {
     final response = await http.get(
-        'https://pennstate.pure.elsevier.com/ws/api/516/persons?size=1&apiKey=e1d6aaae-8a61-4e9e-9e1b-e94d11528b61',
+        'https://pennstate.pure.elsevier.com/ws/api/516/persons?size=8&apiKey=e1d6aaae-8a61-4e9e-9e1b-e94d11528b61',
         headers: {'Accept': 'application/json'});
 
     if (response.statusCode == 200) {
       // If server returns an OK response, parse the JSON.
       print('code is 200');
+      print('the body is ' + response.body);
+
       var parsedJson = json.decode(response.body);
       print(parsedJson);
       return Josh.fromJson(parsedJson);
@@ -60,8 +64,12 @@ class _MyAppState extends State<MyApp> {
                   future: josh,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      //print(snapshot.data.Item.ItemName.firstName);
-                      print(snapshot.data.items[0].name.firstName);
+                      //snapshot.data is our huge josh object in this block :)
+                      int jsonSize = snapshot.data.pageInformation.size;
+                      for (int i = 0; i < jsonSize; i++) {
+                        print(snapshot.data.items[i].name.firstName);
+                      }
+
                       firstName = snapshot.data.items[0].name.firstName;
                       lastName = snapshot.data.items[0].name.lastName;
                       return Column(

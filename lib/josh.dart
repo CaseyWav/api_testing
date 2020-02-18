@@ -4,10 +4,6 @@ class Josh {
   List<Item> items;
   List<Link> navigationLinks;
 
-  String getAll() {
-    return count.toString() + pageInformation.toString();
-  }
-
   Josh({
     this.count,
     this.pageInformation,
